@@ -8,10 +8,10 @@ public class EnemyManager : MonoBehaviour
     public GameObject enemy;
     public float spawnTime = 3f;
     public Transform[] spawnPoints;
-	public int levelPoint = 10;
+	public int levelPoint = 12;
+	public float spawnTimeReduce = 0.4f;
 
 	int numSpawned;
-	static float spawnTimeReduce = 0.5f;
 
     void Start ()
     {

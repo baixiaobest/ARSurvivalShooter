@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float smooth = 0.001f;
+	public float smooth = 0.001f;
+	public float boostTime = 20f;
+	public Slider speedSlider;
+	public GameObject speedUI;
+
+	float originalSmooth;
     Vector3 movement;
 	Vector3 dest;
     Animator anim;
@@ -10,12 +16,16 @@ public class PlayerMovement : MonoBehaviour
     int floorMask;
 	int shootableMask;
     float camRayLength = 100f; // how far from camera
+	float boostTimer;
 
     void Awake()
     {
+		originalSmooth = smooth;
         floorMask = LayerMask.GetMask("Floor");
 		shootableMask = LayerMask.GetMask ("Shootable");
 		anim = GetComponent<Animator> ();
+		boostTimer = 0f;
+		speedSlider.maxValue = boostTime;
 		//playerRigidbody = GetComponent<Rigidbody> ();
     }
 
@@ -49,6 +59,14 @@ public class PlayerMovement : MonoBehaviour
 		}
 		#endif
 
+		if (boostTimer > 0) {
+			boostTimer -= Time.deltaTime;
+			speedSlider.value = boostTimer;
+		} else {
+			smooth = originalSmooth;
+			speedUI.SetActive(false);
+		}
+
 		if (Input.GetMouseButton (0) || Input.touchCount > 0) {
 			#if UNITY_EDITOR
 			Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);		
@@ -67,6 +85,12 @@ public class PlayerMovement : MonoBehaviour
 		Vector3 lastPos = transform.position;
 		transform.position = Vector3.MoveTowards (transform.position, dest, smooth);
 		anim.SetBool ("IsWalking", lastPos != transform.position);
+	}
+
+	public void StartBoost() {
+		boostTimer = boostTime;
+		smooth *= 1.5f;
+		speedUI.SetActive (true);
 	}
 //
 //	void Move ()

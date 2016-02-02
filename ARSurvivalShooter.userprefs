@@ -1,8 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\PlayerShooting.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\EnemyManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player\PlayerShooting.cs" Line="47" Column="39" />
+      <File FileName="Assets\Scripts\Player\PlayerMovement.cs" Line="64" Column="35" />
+      <File FileName="Assets\Scripts\Pickup\BootController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Managers\PickupManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Managers\EnemyManager.cs" Line="19" Column="57" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
