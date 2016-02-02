@@ -1,0 +1,85 @@
+﻿using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    public float smooth = 0.001f;
+    Vector3 movement;
+	Vector3 dest;
+    Animator anim;
+    //Rigidbody playerRigidbody;
+    int floorMask;
+	int shootableMask;
+    float camRayLength = 100f; // how far from camera
+
+    void Awake()
+    {
+        floorMask = LayerMask.GetMask("Floor");
+		shootableMask = LayerMask.GetMask ("Shootable");
+		anim = GetComponent<Animator> ();
+		//playerRigidbody = GetComponent<Rigidbody> ();
+    }
+
+	void FixedUpdate() // Build-in function called on every framerate update
+	{		
+		#if UNITY_EDITOR
+		if (Input.GetMouseButton(0)) {
+			Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit floorHit, otherHit;
+			
+			if (Physics.Raycast (camRay, out floorHit, camRayLength, floorMask)) {
+				if (!Physics.Raycast(camRay, out otherHit, camRayLength, shootableMask) || otherHit.collider.gameObject.tag != "Enemy") {
+					dest = floorHit.point;
+					dest.y = 0f;
+				}
+			}
+		}
+		#elif (UNITY_ANDROID || UNITY_IOS)
+		foreach (Touch touch in Input.touches) {
+			if (touch.phase != TouchPhase.Ended) {
+				Ray camRay = Camera.main.ScreenPointToRay (touch.position);
+				RaycastHit floorHit, otherHit;
+				
+				if (Physics.Raycast (camRay, out floorHit, camRayLength, floorMask)) {
+					if (!Physics.Raycast(camRay, out otherHit, camRayLength, shootableMask) || otherHit.collider.gameObject.tag != "Enemy") {
+						dest = floorHit.point;
+						dest.y = 0f;
+					}
+				}
+			}
+		}
+		#endif
+
+		if (Input.GetMouseButton (0) || Input.touchCount > 0) {
+			#if UNITY_EDITOR
+			Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);		
+			#elif (UNITY_ANDROID || UNITY_IPHONE)
+			Ray camRay = Camera.main.ScreenPointToRay (Input.GetTouch(0).position);
+			#endif
+			RaycastHit floorHit, otherHit;
+
+			if (Physics.Raycast (camRay, out floorHit, camRayLength, floorMask)) {
+				if (!Physics.Raycast(camRay, out otherHit, camRayLength, shootableMask) || otherHit.collider.gameObject.tag != "Enemy") {
+					dest = floorHit.point;
+					dest.y = 0f;
+				}
+			}
+		}
+		Vector3 lastPos = transform.position;
+		transform.position = Vector3.MoveTowards (transform.position, dest, smooth);
+		anim.SetBool ("IsWalking", lastPos != transform.position);
+	}
+//
+//	void Move ()
+//	{
+//		movement.Set (h, 0f, v);
+//		movement = movement.normalized * speed * Time.deltaTime;
+//		playerRigidbody.MovePosition (transform.position + movement);
+//	}
+//
+//	void Turning (RaycastHit floorHit)
+//	{
+//		Vector3 playerToMouse = floorHit.point - transform.position;
+//		playerToMouse.y = 0f; // No rotation on y, actually not needed here
+//		playerRigidbody.MoveRotation (Quaternion.LookRotation (playerToMouse));
+//	}
+}
