@@ -80,4 +80,8 @@ public class EnemyHealth : MonoBehaviour
         ScoreManager.score += scoreValue; // since it is static
         Destroy (gameObject, 2f);
     }
+
+	public bool IsDead(){
+		return isDead;
+	}
 }

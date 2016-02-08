@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EnemyMovement : MonoBehaviour
 {
+	float speed = 3f;
 	Transform player;
     PlayerHealth playerHealth;
     EnemyHealth enemyHealth;
@@ -26,4 +27,19 @@ public class EnemyMovement : MonoBehaviour
         else
             nav.enabled = false;
     }
+
+	void OnTriggerStay (Collider collider)
+	{
+		if (collider.CompareTag ("Safezone")) {
+			Vector3 posOffset = transform.position - collider.transform.position;
+			float distanceToSafezone = posOffset.sqrMagnitude;
+			float killingRadius = collider.GetComponent<Safezone> ().killingRadius * collider.GetComponent<Safezone> ().killingRadius;
+			//in killing zone, zombie dies
+			if (distanceToSafezone < killingRadius && !enemyHealth.IsDead ()) {
+				enemyHealth.TakeDamage (100, transform.position);
+			} else { //zombie gets pushed away
+				transform.position = transform.position + posOffset.normalized * speed * Time.deltaTime;
+			}
+		}
+	}
 }

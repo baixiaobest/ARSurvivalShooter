@@ -3,11 +3,14 @@
 public class PlayerShooting : MonoBehaviour
 {
 	public GameObject FlareUI;
+	public GameObject safeZone;
+	public GameObject imageTarget;
     public int damagePerShot = 20;
     public float timeBetweenBullets = 0.12f;
     public float range = 100f;
 
     float timer;
+	float flareTimer=0;
     Ray shootRay;
     RaycastHit shootHit;
     int shootableMask;
@@ -45,6 +48,10 @@ public class PlayerShooting : MonoBehaviour
     void Update ()
     {
         timer += Time.deltaTime;
+		if (flareTimer > 0)
+			flareTimer -= Time.deltaTime;
+		else
+			flareTimer = 0;
 
 		#if UNITY_EDITOR
 		if (Input.GetMouseButton(0)) {
@@ -89,6 +96,11 @@ public class PlayerShooting : MonoBehaviour
 
         if(timer >= effectsDisplayTime)
             DisableEffects ();
+
+		if (flareTimer <= 0 && flareCount > 0 && Input.GetButton("Fire3")) {
+			SpendFlare ();
+			flareTimer = 1f;
+		}
     }
 
 
@@ -136,9 +148,11 @@ public class PlayerShooting : MonoBehaviour
 	}
 
 	void SpendFlare(){
-		flareCount--;
-		if (flareCount < 0)
-			flareCount = 0;
-		flareImages [flareCount - 1].gameObject.SetActive (false);
+		if (flareCount > 0) {
+			flareImages [flareCount - 1].gameObject.SetActive (false);
+			GameObject flare = Instantiate (safeZone, transform.position, transform.rotation) as GameObject;
+			flare.transform.parent = imageTarget.transform;
+			flareCount--;
+		}
 	}
 }

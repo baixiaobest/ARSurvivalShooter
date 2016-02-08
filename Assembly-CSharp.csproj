@@ -78,6 +78,7 @@
      <Compile Include="Assets\Scripts\Pickup\FlareController.cs" />
      <Compile Include="Assets\Scripts\Pickup\HeartController.cs" />
      <Compile Include="Assets\Scripts\Pickup\PickupMovement.cs" />
+     <Compile Include="Assets\Scripts\Pickup\Safezone.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerShooting.cs" />
