@@ -2,6 +2,7 @@
 
 public class PlayerShooting : MonoBehaviour
 {
+	public GameObject FlareUI;
     public int damagePerShot = 20;
     public float timeBetweenBullets = 0.12f;
     public float range = 100f;
@@ -19,6 +20,8 @@ public class PlayerShooting : MonoBehaviour
 	float camRayLength = 100f;
 	GameObject target; // enemy to shoot
 
+	Transform[] flareImages;
+	int flareCount = 0;
     void Awake ()
     {
         shootableMask = LayerMask.GetMask ("Shootable");
@@ -30,6 +33,14 @@ public class PlayerShooting : MonoBehaviour
 		effectsDisplayTime = 0.2f * timeBetweenBullets;
     }
 
+	void Start(){
+		flareImages = new Transform[6];
+		int i = 0;
+		foreach (Transform child in FlareUI.transform) {
+			flareImages [i] = child;
+			i++;
+		}
+	}
 
     void Update ()
     {
@@ -116,4 +127,18 @@ public class PlayerShooting : MonoBehaviour
         else
             gunLine.SetPosition (1, shootRay.origin + shootRay.direction * range);
     }
+
+	public void GetFlare(){
+		flareCount++;
+		if (flareCount > 6)
+			flareCount = 6;
+		flareImages [flareCount-1].gameObject.SetActive(true);
+	}
+
+	void SpendFlare(){
+		flareCount--;
+		if (flareCount < 0)
+			flareCount = 0;
+		flareImages [flareCount - 1].gameObject.SetActive (false);
+	}
 }

@@ -69,11 +69,13 @@
      <Compile Include="Assets\Scripts\ImageTargetTrackableEventHandler.cs" />
      <Compile Include="Assets\Scripts\ImageTargetUIEventHandler.cs" />
      <Compile Include="Assets\Scripts\ImageTargetUIView.cs" />
+     <Compile Include="Assets\Scripts\Managers\BonusPickupManager.cs" />
      <Compile Include="Assets\Scripts\Managers\EnemyManager.cs" />
      <Compile Include="Assets\Scripts\Managers\GameOverManager.cs" />
      <Compile Include="Assets\Scripts\Managers\PickupManager.cs" />
      <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\Pickup\BootController.cs" />
+     <Compile Include="Assets\Scripts\Pickup\FlareController.cs" />
      <Compile Include="Assets\Scripts\Pickup\HeartController.cs" />
      <Compile Include="Assets\Scripts\Pickup\PickupMovement.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerHealth.cs" />
