@@ -1,4 +1,4 @@
-﻿#define EPSON
+﻿//#define EPSON
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,25 +32,9 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate() // Build-in function called on every framerate update
 	{
-		if (boostTimer > 0) {
-			boostTimer -= Time.deltaTime;
-			speedSlider.value = boostTimer;
-		} else {
-			smooth = originalSmooth;
-			speedUI.SetActive(false);
-		}
-		bool epson=false;
-		#if EPSON
-			epson = true;
-		#endif
-		if (Input.GetMouseButton (0) || Input.touchCount > 0 || epson) {
-			#if (UNITY_EDITOR && !EPSON)
-			Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);		
-			#elif ((UNITY_ANDROID || UNITY_IPHONE) && !EPSON)
-			Ray camRay = Camera.main.ScreenPointToRay (Input.GetTouch(0).position);
-			#elif EPSON
-			Ray camRay = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-			#endif
+		#if (UNITY_EDITOR && !EPSON)
+		if (Input.GetMouseButton(0)) {
+			Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit floorHit, otherHit;
 
 			if (Physics.Raycast (camRay, out floorHit, camRayLength, floorMask)) {
@@ -60,9 +44,43 @@ public class PlayerMovement : MonoBehaviour
 				}
 			}
 		}
+		#elif ((UNITY_ANDROID || UNITY_IOS) && !EPSON)
+		foreach (Touch touch in Input.touches) {
+			if (touch.phase != TouchPhase.Ended) {
+				Ray camRay = Camera.main.ScreenPointToRay (touch.position);
+				RaycastHit floorHit, otherHit;
+
+				if (Physics.Raycast (camRay, out floorHit, camRayLength, floorMask)) {
+					if (!Physics.Raycast(camRay, out otherHit, camRayLength, shootableMask) || otherHit.collider.gameObject.tag != "Enemy") {
+						dest = floorHit.point;
+						dest.y = 0f;
+					}
+				}
+			}
+		}
+		#elif EPSON
+		Ray camRay = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+		RaycastHit floorHit, otherHit;
+
+		if (Physics.Raycast (camRay, out floorHit, camRayLength, floorMask)) {
+			if (!Physics.Raycast(camRay, out otherHit, camRayLength, shootableMask) || otherHit.collider.gameObject.tag != "Enemy") {
+				dest = floorHit.point;
+				dest.y = 0f;
+			}
+		}
+		#endif
+
+		if (boostTimer > 0) {
+			boostTimer -= Time.deltaTime;
+			speedSlider.value = boostTimer;
+		} else {
+			smooth = originalSmooth;
+			speedUI.SetActive(false);
+		}
+
 		Vector3 lastPos = transform.position;
 		transform.position = Vector3.MoveTowards (transform.position, dest, smooth);
-		anim.SetBool ("IsWalking", lastPos != transform.position);
+		anim.SetBool ("IsWalking", (lastPos-transform.position).sqrMagnitude > 0.008f);
 	}
 
 	public void StartBoost() {
