@@ -35,5 +35,6 @@ public class EnemyManager : MonoBehaviour
 
         GameObject spawned = Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation) as GameObject;
 		spawned.transform.parent = imageTarget.transform;
+		imageTarget.GetComponent<VirtualButtonManager> ().AssignVirtualButton (spawned);
     }
 }

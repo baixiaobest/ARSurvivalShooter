@@ -74,6 +74,7 @@
      <Compile Include="Assets\Scripts\Managers\GameOverManager.cs" />
      <Compile Include="Assets\Scripts\Managers\PickupManager.cs" />
      <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\VirtualButtonManager.cs" />
      <Compile Include="Assets\Scripts\Pickup\BootController.cs" />
      <Compile Include="Assets\Scripts\Pickup\FlareController.cs" />
      <Compile Include="Assets\Scripts\Pickup\HeartController.cs" />
@@ -82,6 +83,7 @@
      <Compile Include="Assets\Scripts\Player\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerShooting.cs" />
+     <Compile Include="Assets\Scripts\VirtualButtonController.cs" />
      <Compile Include="Assets\Vuforia\Scripts\BackgroundPlaneBehaviour.cs" />
      <Compile Include="Assets\Vuforia\Scripts\CloudRecoBehaviour.cs" />
      <Compile Include="Assets\Vuforia\Scripts\CylinderTargetBehaviour.cs" />
