@@ -1,4 +1,4 @@
-﻿//#define EPSON
+﻿#define EPSON
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -79,8 +79,19 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		Vector3 lastPos = transform.position;
+
+		#if !EPSON
 		transform.position = Vector3.MoveTowards (transform.position, dest, smooth);
-		anim.SetBool ("IsWalking", (lastPos-transform.position).sqrMagnitude > 0.008f);
+		anim.SetBool ("IsWalking", lastPos!=transform.position);
+		#else
+		if((lastPos-dest).sqrMagnitude > 0.5*0.5){
+			transform.position = Vector3.MoveTowards (transform.position, dest, smooth);
+			anim.SetBool ("IsWalking", true);
+		}else{
+			transform.position = lastPos;
+			anim.SetBool ("IsWalking", false);
+		}
+		#endif
 	}
 
 	public void StartBoost() {

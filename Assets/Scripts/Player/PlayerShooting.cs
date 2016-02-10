@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿//#define EPSON
+using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PlayerShooting : MonoBehaviour
 	Rigidbody playerRigidbody;
 	float effectsDisplayTime;
 	float camRayLength = 100f;
-	GameObject target; // enemy to shoot
+	public GameObject target; // enemy to shoot
 
 	Transform[] flareImages;
 	int flareCount = 0;
@@ -53,7 +54,7 @@ public class PlayerShooting : MonoBehaviour
 		else
 			flareTimer = 0;
 
-		#if UNITY_EDITOR
+		#if (UNITY_EDITOR && !EPSON)
 		if (Input.GetMouseButton(0)) {
 			Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit enemyHit;
@@ -61,7 +62,7 @@ public class PlayerShooting : MonoBehaviour
 			if (Physics.Raycast (camRay, out enemyHit, camRayLength, shootableMask) && enemyHit.collider.gameObject.tag == "Enemy")
 				target = enemyHit.collider.gameObject;
 		}
-		#elif (UNITY_ANDROID || UNITY_IOS)
+		#elif ((UNITY_ANDROID || UNITY_IOS) && !EPSON)
 		foreach (Touch touch in Input.touches) {
 			if (touch.phase != TouchPhase.Ended) {
 				Ray camRay = Camera.main.ScreenPointToRay (touch.position);
@@ -72,18 +73,6 @@ public class PlayerShooting : MonoBehaviour
 			}
 		}
 		#endif
-//
-//		if (Input.GetMouseButton (0) || Input.touchCount > 0) {
-//			#if UNITY_EDITOR
-//			Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);		
-//			#elif (UNITY_ANDROID || UNITY_IPHONE)
-//			Ray camRay = Camera.main.ScreenPointToRay (Input.GetTouch(0).position);
-//			#endif
-//			RaycastHit enemyHit;
-//
-//			if (Physics.Raycast (camRay, out enemyHit, camRayLength, shootableMask) && enemyHit.collider.gameObject.tag == "Enemy")
-//				target = enemyHit.collider.gameObject;
-//		}
 		
 		if (target != null) { // Turning
 			Vector3 playerToMouse = target.transform.position - transform.position;
