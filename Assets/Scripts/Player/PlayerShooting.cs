@@ -53,7 +53,7 @@ public class PlayerShooting : MonoBehaviour
 			flareTimer -= Time.deltaTime;
 		else
 			flareTimer = 0;
-
+		/*
 		#if (UNITY_EDITOR && !EPSON)
 		if (Input.GetMouseButton(0)) {
 			Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -73,7 +73,7 @@ public class PlayerShooting : MonoBehaviour
 			}
 		}
 		#endif
-		
+		*/
 		if (target != null) { // Turning
 			Vector3 playerToMouse = target.transform.position - transform.position;
 			playerToMouse.y = 0f; // No rotation on y, actually not needed here
@@ -86,7 +86,7 @@ public class PlayerShooting : MonoBehaviour
         if(timer >= effectsDisplayTime)
             DisableEffects ();
 
-		if (flareTimer <= 0 && flareCount > 0 && Input.GetButton("Fire3")) {
+		if (flareTimer <= 0 && flareCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetButton("Fire3"))) {
 			SpendFlare ();
 			flareTimer = 1f;
 		}

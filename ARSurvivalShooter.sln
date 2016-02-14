@@ -5,6 +5,8 @@ Project("{0EFEC912-8A75-D82E-3F18-2F10253F7447}") = "ARSurvivalShooter", "Assemb
 EndProject
 Project("{0EFEC912-8A75-D82E-3F18-2F10253F7447}") = "ARSurvivalShooter", "Assembly-CSharp-Editor.csproj", "{A9FC725A-69DD-6FDA-8380-4765A62D04FF}"
 EndProject
+Project("{0EFEC912-8A75-D82E-3F18-2F10253F7447}") = "ARSurvivalShooter", "Assembly-UnityScript-Editor-firstpass.unityproj", "{4434296D-D459-3916-66C0-D3987FDC9352}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,11 +21,15 @@ Global
 		{A9FC725A-69DD-6FDA-8380-4765A62D04FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9FC725A-69DD-6FDA-8380-4765A62D04FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9FC725A-69DD-6FDA-8380-4765A62D04FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4434296D-D459-3916-66C0-D3987FDC9352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4434296D-D459-3916-66C0-D3987FDC9352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4434296D-D459-3916-66C0-D3987FDC9352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4434296D-D459-3916-66C0-D3987FDC9352}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																												GlobalSection(MonoDevelopProperties) = preSolution
+																																											GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -42,4 +48,5 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 	EndGlobalSection
+
 EndGlobal
