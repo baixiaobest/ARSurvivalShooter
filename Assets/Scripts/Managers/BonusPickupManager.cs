@@ -29,7 +29,7 @@ public class BonusPickupManager : MonoBehaviour {
 			if (instantiatedFlare == null) {
 				int index = Random.Range (0, flareSpawnPoint.Length);
 				instantiatedFlare = Instantiate (flareBonus, flareSpawnPoint [index].position, flareSpawnPoint [index].rotation) as GameObject;
-				instantiatedFlare.transform.parent = imageTarget.transform.parent;
+				instantiatedFlare.transform.parent = imageTarget.transform;
 			}
 			prevBonusScore = ScoreManager.score;
 		}

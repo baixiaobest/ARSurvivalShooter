@@ -19,8 +19,8 @@ public class VirtualButtonManager : MonoBehaviour, IVirtualButtonEventHandler{
 		
 
 	public void OnButtonPressed(VirtualButtonAbstractBehaviour vb){
-		if (vb.GetComponent<VirtualButtonController> ().IsActive ())
-			player.GetComponentInChildren<PlayerShooting> ().target = vb.GetComponent<VirtualButtonController> ().GetTarget ();
+		if (vb.GetComponent<VirtualButtonController>().IsActive())
+			player.GetComponentInChildren<PlayerShooting>().target = vb.GetComponent<VirtualButtonController>().GetTarget();
 	}
 
 	public void OnButtonReleased(VirtualButtonAbstractBehaviour vb){
@@ -29,9 +29,9 @@ public class VirtualButtonManager : MonoBehaviour, IVirtualButtonEventHandler{
 
 	//assign a virtual Button to game object
 	public void AssignVirtualButton(GameObject character){
-		for(int i=0; i<vbs.Length; ++i){
-			if (!vbs [i].GetComponent<VirtualButtonController> ().IsActive ()) {
-				vbs [i].GetComponent<VirtualButtonController> ().SetEnemy (character);
+		for(int i = 0; i < vbs.Length; ++i){
+			if (!vbs[i].GetComponent<VirtualButtonController>().IsActive()) {
+				vbs[i].GetComponent<VirtualButtonController>().SetEnemy(character);
 				break;
 			}
 		}
